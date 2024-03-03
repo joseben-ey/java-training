@@ -44,12 +44,6 @@ public class ControlFlow {
 	// Checking Prime already done in another assignment
 	
 		
-	public static void main(String args[]) {
-		
-		leapyear(2024);
-		odd_even(56);
-		power(2,2);
-		
-	}
+
 	
 }
