@@ -1,19 +1,25 @@
-package program1;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class CopyingFiles {
+
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Thread fileCopy1Thread = new Thread(new FileCopy1());
+        Thread fileCopy2Thread = new Thread(new FileCopy2());
 
-        executor.execute(new FileCopy1());
-        executor.execute(new FileCopy2());
+        fileCopy1Thread.start();
+        fileCopy2Thread.start();
 
-        executor.shutdown();
+        try {
+            fileCopy1Thread.join();
+            fileCopy2Thread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while waiting for threads to finish.");
+            e.printStackTrace();
+        }
+
+        System.out.println("File copying completed (without ExecutorService).");
     }
 }
 
